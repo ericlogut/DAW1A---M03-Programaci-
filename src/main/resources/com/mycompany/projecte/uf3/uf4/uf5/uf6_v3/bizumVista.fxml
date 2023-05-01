@@ -14,21 +14,44 @@
       <Insets bottom="20.0" left="20.0" right="20.0" top="20.0" />
    </padding>
    <children>
-      <AnchorPane prefHeight="300.0" prefWidth="300.0">
+      <AnchorPane prefHeight="450.0" prefWidth="450.0">
          <children>
-            <Label layoutX="73.0" layoutY="14.0" prefHeight="30.0" prefWidth="154.0" text="Caixer Automàtic">
+            <Label layoutX="73.0" layoutY="14.0" prefHeight="58.0" prefWidth="307.0" text="Caixer Automàtic">
                <font>
-                  <Font size="20.0" />
+                  <Font size="40.0" />
                </font>
             </Label>
-            <TextField fx:id="quantitatTransferir" layoutX="75.0" layoutY="180.0" />
-            <Button fx:id="botoTransferir" layoutX="63.0" layoutY="229.0" mnemonicParsing="false" onAction="#moureDiners" prefHeight="26.0" prefWidth="72.0" text="Enviar" />
-            <Label layoutX="74.0" layoutY="162.0" text="Quantitat per realitzar bizum" />
-            <Label layoutX="65.0" layoutY="66.0" text="Transferencia compte propietari" />
-            <ChoiceBox fx:id="compteTrans" layoutX="74.0" layoutY="84.0" prefWidth="150.0" />
-            <Label layoutX="74.0" layoutY="115.0" text="Transferencia usuari extern" />
-            <Button fx:id="botoClau1" layoutX="153.0" layoutY="229.0" mnemonicParsing="false" onAction="#switchToMenu" prefHeight="26.0" prefWidth="86.0" text="Tornar" />
-            <ChoiceBox fx:id="usuariTrans" layoutX="74.0" layoutY="133.0" prefWidth="150.0" />
+            <TextField fx:id="quantitatTransferir" layoutX="112.0" layoutY="268.0">
+               <font>
+                  <Font size="18.0" />
+               </font></TextField>
+            <Button fx:id="botoTransferir" layoutX="132.0" layoutY="328.0" mnemonicParsing="false" onAction="#moureDiners" prefHeight="26.0" prefWidth="72.0" text="Enviar">
+               <font>
+                  <Font size="18.0" />
+               </font></Button>
+            <Label layoutX="113.0" layoutY="234.0" text="Quantitat per realitzar bizum">
+               <font>
+                  <Font size="18.0" />
+               </font></Label>
+            <Label layoutX="100.0" layoutY="85.0" text="Transferencia compte propietari">
+               <font>
+                  <Font size="18.0" />
+               </font></Label>
+            <ChoiceBox fx:id="compteTrans" layoutX="113.0" layoutY="113.0" prefHeight="40.0" prefWidth="223.0" />
+            <Label layoutX="117.0" layoutY="160.0" text="Transferencia usuari extern">
+               <font>
+                  <Font size="18.0" />
+               </font></Label>
+            <Button fx:id="botoClau1" layoutX="236.0" layoutY="328.0" mnemonicParsing="false" onAction="#switchToMenu" prefHeight="26.0" prefWidth="86.0" text="Tornar">
+               <font>
+                  <Font size="18.0" />
+               </font></Button>
+            <ChoiceBox fx:id="usuariTrans" layoutX="112.0" layoutY="188.0" prefHeight="40.0" prefWidth="223.0" />
+            <Label fx:id="Error" layoutX="109.0" layoutY="383.0">
+               <font>
+                  <Font size="18.0" />
+               </font>
+            </Label>
          </children>
       </AnchorPane>
    </children>

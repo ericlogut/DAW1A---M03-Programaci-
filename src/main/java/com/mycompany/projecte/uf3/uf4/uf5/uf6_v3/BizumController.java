@@ -20,6 +20,7 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.scene.control.ChoiceBox;
+import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 
 /**
@@ -42,36 +43,43 @@ public class BizumController {
     @FXML
     TextField quantitatTransferir;
     
+    @FXML
+    Label Error;
+    
     ConnectionClass connectionClass = new ConnectionClass();
     Connection connection = connectionClass.getConnection();
     
+    /**
+    * Inicialitza les opcions de transferència per als usuaris i comptes disponibles.
+    * @throws SQLException si hi ha un error en la connexió amb la base de dades.
+    */
     @FXML
     public void initialize() throws SQLException {
-        String selectSql = "SELECT * FROM usuaris";
-        Statement selectStatement = connection.createStatement();
-        ResultSet resultSet = selectStatement.executeQuery(selectSql);
+    String selectSql = "SELECT * FROM usuaris";
+    Statement selectStatement = connection.createStatement();
+    ResultSet resultSet = selectStatement.executeQuery(selectSql);
 
-        List<String> opciones = new ArrayList<>();
+    List<String> opcions = new ArrayList<>();
 
-        while (resultSet.next()) {
-            opciones.add(resultSet.getString("nom"));
-        }
+    while (resultSet.next()) {
+    opcions.add(resultSet.getString("nom"));
+    }
 
-        ObservableList<String> opcionesObservable = FXCollections.observableArrayList(opciones);
-        usuariTrans.setItems(opcionesObservable);
+    ObservableList<String> opcionsObservable = FXCollections.observableArrayList(opcions);
+    usuariTrans.setItems(opcionsObservable);
 
-        String selectSql2 = "SELECT * FROM compte WHERE usuari_id = " + AlmacenarUsuario.usuari;
-        Statement selectStatement2 = connection.createStatement();
-        ResultSet resultSet2 = selectStatement2.executeQuery(selectSql2);
+    String selectSql2 = "SELECT * FROM compte WHERE usuari_id = " + AlmacenarUsuario.usuari;
+    Statement selectStatement2 = connection.createStatement();
+    ResultSet resultSet2 = selectStatement2.executeQuery(selectSql2);
 
-        List<String> opciones2 = new ArrayList<>();
+    List<String> opcions2 = new ArrayList<>();
 
-        while (resultSet2.next()) {
-            opciones2.add("Compte " + resultSet2.getString("id") + ": " + resultSet2.getString("saldo"));
-        }
+    while (resultSet2.next()) {
+    opcions2.add("Compte " + resultSet2.getString("id") + ": " + resultSet2.getString("saldo"));
+    }
 
-        ObservableList<String> opcionesObservable2 = FXCollections.observableArrayList(opciones2);
-        compteTrans.setItems(opcionesObservable2);
+    ObservableList<String> opcionsObservable2 = FXCollections.observableArrayList(opcions2);
+    compteTrans.setItems(opcionsObservable2);
     }
     
     public void moureDiners() throws SQLException {
@@ -161,9 +169,9 @@ public class BizumController {
         int rowsAffected = stmt.executeUpdate();
 
         if (rowsAffected > 0) {
-            System.out.println("El registro se insertó correctamente.");
+            Error.setText("El bizum s'ha realitzar correctament.");
         } else {
-            System.out.println("El registro no se insertó correctamente.");
+            Error.setText("El bizum no s'ha realitzar correctament.");
         }
     }
 

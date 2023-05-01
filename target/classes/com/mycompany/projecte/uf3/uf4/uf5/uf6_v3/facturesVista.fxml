@@ -13,19 +13,31 @@
       <Insets bottom="20.0" left="20.0" right="20.0" top="20.0" />
    </padding>
    <children>
-      <AnchorPane prefHeight="300.0" prefWidth="300.0">
+      <AnchorPane prefHeight="450.0" prefWidth="450.0">
          <children>
-            <Label layoutX="73.0" layoutY="14.0" prefHeight="30.0" prefWidth="154.0" text="Caixer Automàtic">
+            <Label layoutX="73.0" layoutY="14.0" prefHeight="58.0" prefWidth="310.0" text="Caixer Automàtic">
                <font>
-                  <Font size="20.0" />
+                  <Font size="40.0" />
                </font>
             </Label>
-            <Button fx:id="botoIngresar" layoutX="61.0" layoutY="198.0" mnemonicParsing="false" onAction="#pagarFactura" prefHeight="26.0" prefWidth="72.0" text="Pagar" />
-            <Label layoutX="75.0" layoutY="138.0" text="Compte per pagar" />
-            <Label layoutX="75.0" layoutY="85.0" text="Factura a pagar" />
-            <ChoiceBox fx:id="facturaSeleccionada" layoutX="75.0" layoutY="103.0" prefWidth="150.0" />
-            <Button fx:id="botoClau1" layoutX="148.0" layoutY="198.0" mnemonicParsing="false" onAction="#switchToMenu" prefHeight="26.0" prefWidth="86.0" text="Tornar" />
-            <ChoiceBox fx:id="compteSeleccionat" layoutX="75.0" layoutY="156.0" prefWidth="150.0" />
+            <Button fx:id="botoIngresar" layoutX="138.0" layoutY="277.0" mnemonicParsing="false" onAction="#pagarFactura" prefHeight="26.0" prefWidth="72.0" text="Pagar">
+               <font>
+                  <Font size="18.0" />
+               </font></Button>
+            <Label layoutX="135.0" layoutY="194.0" text="Compte per pagar">
+               <font>
+                  <Font size="18.0" />
+               </font></Label>
+            <Label layoutX="134.0" layoutY="115.0" text="Factura a pagar">
+               <font>
+                  <Font size="18.0" />
+               </font></Label>
+            <ChoiceBox fx:id="facturaSeleccionada" layoutX="135.0" layoutY="144.0" prefHeight="40.0" prefWidth="186.0" />
+            <Button fx:id="botoClau1" layoutX="228.0" layoutY="277.0" mnemonicParsing="false" onAction="#switchToMenu" prefHeight="26.0" prefWidth="86.0" text="Tornar">
+               <font>
+                  <Font size="18.0" />
+               </font></Button>
+            <ChoiceBox fx:id="compteSeleccionat" layoutX="135.0" layoutY="225.0" prefHeight="40.0" prefWidth="186.0" />
          </children>
       </AnchorPane>
    </children>

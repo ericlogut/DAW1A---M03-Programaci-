@@ -13,25 +13,37 @@
       <Insets bottom="20.0" left="20.0" right="20.0" top="20.0" />
    </padding>
    <children>
-      <AnchorPane prefHeight="412.0" prefWidth="551.0">
+      <AnchorPane prefHeight="450.0" prefWidth="450.0">
          <children>
-            <Label layoutX="73.0" layoutY="14.0" prefHeight="74.0" prefWidth="387.0" text="Caixer Automàtic">
+            <Label layoutX="70.0" layoutY="28.0" prefHeight="74.0" prefWidth="324.0" text="Caixer Automàtic">
                <font>
-                  <Font size="50.0" />
+                  <Font size="40.0" />
                </font>
             </Label>
-            <TextField fx:id="nomLogin" layoutX="199.0" layoutY="142.0" />
-            <TextField fx:id="pswdLogin" layoutX="200.0" layoutY="250.0" />
-            <Label layoutX="204.0" layoutY="96.0" prefHeight="18.0" prefWidth="142.0" text="Nom">
+            <TextField fx:id="nomLogin" layoutX="143.0" layoutY="148.0" prefHeight="30.0" prefWidth="159.0">
                <font>
-                  <Font size="30.0" />
-               </font></Label>
-            <Label layoutX="199.0" layoutY="206.0" prefHeight="46.0" prefWidth="178.0" text="Contrasenya">
+                  <Font size="18.0" />
+               </font></TextField>
+            <TextField fx:id="pswdLogin" layoutX="145.0" layoutY="260.0">
                <font>
-                  <Font size="30.0" />
+                  <Font size="18.0" />
+               </font></TextField>
+            <Label layoutX="146.0" layoutY="121.0" prefHeight="18.0" prefWidth="142.0" text="Nom">
+               <font>
+                  <Font size="18.0" />
                </font></Label>
-            <Button fx:id="iniciarSessio" layoutX="248.0" layoutY="301.0" mnemonicParsing="false" onAction="#button" text="Button" />
-            <Label fx:id="errorLabel" layoutX="39.0" layoutY="276.0" prefHeight="18.0" prefWidth="220.0" />
+            <Label layoutX="150.0" layoutY="223.0" prefHeight="30.0" prefWidth="178.0" text="Contrasenya">
+               <font>
+                  <Font size="18.0" />
+               </font></Label>
+            <Button fx:id="iniciarSessio" layoutX="198.0" layoutY="308.0" mnemonicParsing="false" onAction="#button" text="Button">
+               <font>
+                  <Font size="18.0" />
+               </font></Button>
+            <Label fx:id="errorLabel" layoutX="122.0" layoutY="363.0" prefHeight="50.0" prefWidth="220.0">
+               <font>
+                  <Font size="18.0" />
+               </font></Label>
          </children>
       </AnchorPane>
    </children>

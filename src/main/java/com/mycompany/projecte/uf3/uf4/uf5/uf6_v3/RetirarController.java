@@ -31,6 +31,27 @@ public class RetirarController {
 
     @FXML
     TextField quantitatRetirar;
+    
+    @FXML
+    TextField bill5;
+    
+    @FXML
+    TextField bill10;
+    
+    @FXML
+    TextField bill20;    
+        
+    @FXML
+    TextField bill50;
+    
+    @FXML
+    TextField bill100;
+    
+    @FXML
+    TextField bill200;
+    
+    @FXML
+    TextField bill500;
 
     ConnectionClass connectionClass = new ConnectionClass();
     Connection connection = connectionClass.getConnection();
@@ -110,8 +131,74 @@ public class RetirarController {
 
         if (rowsAffected > 0) {
             System.out.println("El registro se insertó correctamente.");
+            actualitzarInventari();
         } else {
             System.out.println("El registro no se insertó correctamente.");
+        }
+    }
+    
+    public void calcularDiners () {
+        try {
+            int quantBitllets5 = Integer.parseInt(bill5.getText().isEmpty() ? "0" : bill5.getText());
+            int quantBitllets10 = Integer.parseInt(bill10.getText().isEmpty() ? "0" : bill10.getText());
+            int quantBitllets20 = Integer.parseInt(bill20.getText().isEmpty() ? "0" : bill20.getText());
+            int quantBitllets50 = Integer.parseInt(bill50.getText().isEmpty() ? "0" : bill50.getText());
+            int quantBitllets100 = Integer.parseInt(bill100.getText().isEmpty() ? "0" : bill100.getText());
+            int quantBitllets200 = Integer.parseInt(bill200.getText().isEmpty() ? "0" : bill200.getText());
+            int quantBitllets500 = Integer.parseInt(bill500.getText().isEmpty() ? "0" : bill500.getText());
+
+
+            int total = (5 * quantBitllets5) + 
+                        (10 * quantBitllets10) +
+                        (20 * quantBitllets20) +
+                        (50 * quantBitllets50) +
+                        (100 * quantBitllets100) +
+                        (200 * quantBitllets200) +
+                        (500 * quantBitllets500);
+
+            quantitatRetirar.setText(String.valueOf(total));
+        } catch (NumberFormatException e) {
+            // Manejar la excepción
+            System.out.println("Error: alguno de los campos de texto no contiene un número válido.");
+        }
+    }
+    
+    public void actualitzarInventari() throws SQLException {
+        // asumiendo que ya tienes una conexión a la base de datos establecida
+
+        // preparar la consulta SQL
+        String updateSql = "UPDATE inventari_billets " +
+                "SET quantitat = CASE valor_bitllet " +
+                "WHEN 5 THEN quantitat - ? " +
+                "WHEN 10 THEN quantitat - ? " +
+                "WHEN 20 THEN quantitat - ? " +
+                "WHEN 50 THEN quantitat - ? " +
+                "WHEN 100 THEN quantitat - ? " +
+                "WHEN 200 THEN quantitat - ? " +
+                "WHEN 500 THEN quantitat - ? " +
+                "END " +
+                "WHERE valor_bitllet IN (5, 10, 20, 50, 100, 200, 500)";
+
+        // preparar el statement con la consulta SQL
+        PreparedStatement updateStatement = connection.prepareStatement(updateSql);
+
+        // establecer los nuevos valores para cada denominación de billete
+        updateStatement.setInt(1, Integer.parseInt(bill5.getText()));
+        updateStatement.setInt(2, Integer.parseInt(bill10.getText()));
+        updateStatement.setInt(3, Integer.parseInt(bill20.getText()));
+        updateStatement.setInt(4, Integer.parseInt(bill50.getText()));
+        updateStatement.setInt(5, Integer.parseInt(bill100.getText()));
+        updateStatement.setInt(6, Integer.parseInt(bill200.getText()));
+        updateStatement.setInt(7, Integer.parseInt(bill500.getText()));
+
+        // ejecutar la actualización
+        int rowsAffected = updateStatement.executeUpdate();
+
+        // verificar si se actualizaron filas
+        if (rowsAffected > 0) {
+            System.out.println("Se actualizaron " + rowsAffected + " filas.");
+        } else {
+            System.out.println("No se actualizaron filas.");
         }
     }
 }

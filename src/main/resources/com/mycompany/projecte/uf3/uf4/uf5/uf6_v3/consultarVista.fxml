@@ -13,21 +13,39 @@
       <Insets bottom="20.0" left="20.0" right="20.0" top="20.0" />
    </padding>
    <children>
-      <AnchorPane prefHeight="300.0" prefWidth="300.0">
+      <AnchorPane prefHeight="450.0" prefWidth="450.0">
          <children>
-            <Label layoutX="73.0" layoutY="14.0" prefHeight="30.0" prefWidth="154.0" text="Caixer Automàtic">
+            <Label layoutX="73.0" layoutY="14.0" prefHeight="58.0" prefWidth="308.0" text="Caixer Automàtic">
                <font>
-                  <Font size="20.0" />
+                  <Font size="40.0" />
                </font>
             </Label>
-            <Label layoutX="79.0" layoutY="89.0" prefHeight="18.0" prefWidth="142.0" text="Saldo total" />
-            <Label layoutX="79.0" layoutY="141.0" prefHeight="18.0" prefWidth="142.0" text="Saldo en comptes" />
-            <Label fx:id="saldoTotal" layoutX="79.0" layoutY="110.0" prefHeight="18.0" prefWidth="142.0" text="0" />
-            <Button fx:id="botoClau1" layoutX="166.0" layoutY="254.0" mnemonicParsing="false" onAction="#switchToMenu" prefHeight="26.0" prefWidth="86.0" text="Tornar" />
-            <ChoiceBox fx:id="compteEscollit" layoutX="79.0" layoutY="161.0" prefWidth="150.0" />
-            <ChoiceBox fx:id="targetaAss" layoutX="79.0" layoutY="214.0" prefWidth="150.0" />
-            <Label layoutX="79.0" layoutY="195.0" prefHeight="18.0" prefWidth="142.0" text="Targetes associades" />
-            <Button fx:id="ConsultarTargetes" layoutX="43.0" layoutY="254.0" mnemonicParsing="false" onAction="#cargarTargetes" prefHeight="26.0" prefWidth="110.0" text="Carrega targetes" />
+            <Label layoutX="141.0" layoutY="82.0" prefHeight="18.0" prefWidth="142.0" text="Saldo total">
+               <font>
+                  <Font size="18.0" />
+               </font></Label>
+            <Label layoutX="141.0" layoutY="138.0" prefHeight="18.0" prefWidth="142.0" text="Saldo en comptes">
+               <font>
+                  <Font size="18.0" />
+               </font></Label>
+            <Label fx:id="saldoTotal" layoutX="141.0" layoutY="109.0" prefHeight="18.0" prefWidth="142.0" text="0">
+               <font>
+                  <Font size="18.0" />
+               </font></Label>
+            <Button fx:id="botoClau1" layoutX="184.0" layoutY="361.0" mnemonicParsing="false" onAction="#switchToMenu" prefHeight="26.0" prefWidth="86.0" text="Tornar">
+               <font>
+                  <Font size="18.0" />
+               </font></Button>
+            <ChoiceBox fx:id="compteEscollit" layoutX="143.0" layoutY="167.0" prefHeight="40.0" prefWidth="164.0" />
+            <ChoiceBox fx:id="targetaAss" layoutX="145.0" layoutY="249.0" prefHeight="40.0" prefWidth="164.0" />
+            <Label layoutX="143.0" layoutY="221.0" prefHeight="27.0" prefWidth="164.0" text="Targetes associades">
+               <font>
+                  <Font size="18.0" />
+               </font></Label>
+            <Button fx:id="ConsultarTargetes" layoutX="148.0" layoutY="308.0" mnemonicParsing="false" onAction="#cargarTargetes" prefHeight="40.0" prefWidth="157.0" text="Carrega targetes">
+               <font>
+                  <Font size="18.0" />
+               </font></Button>
          </children>
       </AnchorPane>
    </children>

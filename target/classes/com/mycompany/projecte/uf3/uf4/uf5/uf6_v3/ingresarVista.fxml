@@ -14,19 +14,62 @@
       <Insets bottom="20.0" left="20.0" right="20.0" top="20.0" />
    </padding>
    <children>
-      <AnchorPane prefHeight="300.0" prefWidth="300.0">
+      <AnchorPane prefHeight="450.0" prefWidth="450.0">
          <children>
-            <Label layoutX="73.0" layoutY="14.0" prefHeight="30.0" prefWidth="154.0" text="Caixer Automàtic">
+            <Label layoutX="73.0" layoutY="14.0" prefHeight="58.0" prefWidth="302.0" text="Caixer Automàtic">
                <font>
-                  <Font size="20.0" />
+                  <Font size="40.0" />
                </font>
             </Label>
-            <TextField fx:id="quantitatIngresar" layoutX="75.0" layoutY="156.0" />
-            <Button fx:id="botoIngresar" layoutX="61.0" layoutY="198.0" mnemonicParsing="false" onAction="#ingresarDiners" prefHeight="26.0" prefWidth="72.0" text="Ingresar" />
-            <Label layoutX="75.0" layoutY="138.0" text="Quantitat per ingresar" />
-            <Label layoutX="75.0" layoutY="85.0" text="Compte per ingresar" />
-            <ChoiceBox fx:id="compteIngresar" layoutX="75.0" layoutY="103.0" prefWidth="150.0" />
-            <Button fx:id="botoClau1" layoutX="148.0" layoutY="198.0" mnemonicParsing="false" onAction="#switchToMenu" prefHeight="26.0" prefWidth="86.0" text="Tornar" />
+            <TextField fx:id="quantitatIngresar" editable="false" layoutX="246.0" layoutY="132.0" prefHeight="40.0" prefWidth="175.0">
+               <font>
+                  <Font size="18.0" />
+               </font></TextField>
+            <Button fx:id="botoIngresar" layoutX="130.0" layoutY="372.0" mnemonicParsing="false" onAction="#ingresarDiners" prefHeight="40.0" prefWidth="98.0" text="Ingresar">
+               <font>
+                  <Font size="18.0" />
+               </font></Button>
+            <Label layoutX="242.0" layoutY="105.0" text="Quantitat per ingresar">
+               <font>
+                  <Font size="18.0" />
+               </font></Label>
+            <Label layoutX="44.0" layoutY="105.0" text="Compte per ingresar">
+               <font>
+                  <Font size="18.0" />
+               </font></Label>
+            <ChoiceBox fx:id="compteIngresar" layoutX="45.0" layoutY="132.0" prefHeight="40.0" prefWidth="175.0" />
+            <Button fx:id="botoClau1" layoutX="246.0" layoutY="372.0" mnemonicParsing="false" onAction="#switchToMenu" prefHeight="26.0" prefWidth="86.0" text="Tornar">
+               <font>
+                  <Font size="18.0" />
+               </font></Button>
+            <TextField fx:id="bill5" layoutX="130.0" layoutY="194.0" onMouseClicked="#calcularDiners" prefHeight="40.0" prefWidth="54.0" promptText="5">
+               <font>
+                  <Font size="18.0" />
+               </font></TextField>
+            <TextField fx:id="bill10" layoutX="215.0" layoutY="194.0" onMouseClicked="#calcularDiners" prefHeight="40.0" prefWidth="54.0" promptText="10">
+               <font>
+                  <Font size="18.0" />
+               </font></TextField>
+            <TextField fx:id="bill20" layoutX="302.0" layoutY="194.0" onMouseClicked="#calcularDiners" prefHeight="40.0" prefWidth="54.0" promptText="20">
+               <font>
+                  <Font size="18.0" />
+               </font></TextField>
+            <TextField fx:id="bill500" layoutX="215.0" layoutY="313.0" onMouseClicked="#calcularDiners" prefHeight="40.0" prefWidth="54.0" promptText="500">
+               <font>
+                  <Font size="18.0" />
+               </font></TextField>
+            <TextField fx:id="bill50" layoutX="130.0" layoutY="253.0" onMouseClicked="#calcularDiners" prefHeight="40.0" prefWidth="54.0" promptText="50">
+               <font>
+                  <Font size="18.0" />
+               </font></TextField>
+            <TextField fx:id="bill100" layoutX="215.0" layoutY="253.0" onMouseClicked="#calcularDiners" prefHeight="40.0" prefWidth="54.0" promptText="100">
+               <font>
+                  <Font size="18.0" />
+               </font></TextField>
+            <TextField fx:id="bill200" layoutX="302.0" layoutY="253.0" onMouseClicked="#calcularDiners" prefHeight="40.0" prefWidth="54.0" promptText="200">
+               <font>
+                  <Font size="18.0" />
+               </font></TextField>
          </children>
       </AnchorPane>
    </children>

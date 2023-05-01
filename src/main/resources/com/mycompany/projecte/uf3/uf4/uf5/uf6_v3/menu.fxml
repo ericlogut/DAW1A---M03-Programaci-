@@ -12,22 +12,49 @@
       <Insets bottom="20.0" left="20.0" right="20.0" top="20.0" />
    </padding>
    <children>
-      <AnchorPane prefHeight="300.0" prefWidth="300.0">
+      <AnchorPane prefHeight="450.0" prefWidth="450.0">
          <children>
-            <Label layoutX="73.0" layoutY="14.0" prefHeight="30.0" prefWidth="154.0" text="Caixer Automàtic">
+            <Button fx:id="consultar" layoutX="18.0" layoutY="179.0" mnemonicParsing="false" onAction="#switchToConsultar" prefHeight="40.0" prefWidth="194.0" text="Consultar saldo">
                <font>
-                  <Font size="20.0" />
+                  <Font size="18.0" />
+               </font></Button>
+            <Button fx:id="retirar" layoutX="18.0" layoutY="231.0" mnemonicParsing="false" onAction="#switchToRetirar" prefHeight="40.0" prefWidth="194.0" text="Retirar diners">
+               <font>
+                  <Font size="18.0" />
+               </font></Button>
+            <Button fx:id="transferencia" layoutX="18.0" layoutY="281.0" mnemonicParsing="false" onAction="#switchToTransferencia" prefHeight="40.0" prefWidth="194.0" text="Realitzar trasferencia">
+               <font>
+                  <Font size="18.0" />
+               </font></Button>
+            <Button fx:id="canviarClau" layoutX="237.0" layoutY="281.0" mnemonicParsing="false" onAction="#switchToClau" prefHeight="40.0" prefWidth="194.0" text="Canviar clau d'accés">
+               <font>
+                  <Font size="18.0" />
+               </font></Button>
+            <Button fx:id="logout" layoutX="154.0" layoutY="340.0" mnemonicParsing="false" onAction="#switchToLogout" prefHeight="30.0" prefWidth="142.0" text="Logout">
+               <font>
+                  <Font size="18.0" />
+               </font></Button>
+            <Button fx:id="ingresar" layoutX="18.0" layoutY="129.0" mnemonicParsing="false" onAction="#switchToIngresar" prefHeight="40.0" prefWidth="194.0" text="Ingresar diners">
+               <font>
+                  <Font size="18.0" />
+               </font></Button>
+            <Button layoutX="237.0" layoutY="129.0" mnemonicParsing="false" onAction="#switchToBizum" prefHeight="40.0" prefWidth="194.0" text="Bizum">
+               <font>
+                  <Font size="18.0" />
+               </font></Button>
+            <Button layoutX="237.0" layoutY="179.0" mnemonicParsing="false" onAction="#switchToCrearCompte" prefHeight="40.0" prefWidth="194.0" text="Crear compte">
+               <font>
+                  <Font size="18.0" />
+               </font></Button>
+            <Button layoutX="237.0" layoutY="231.0" mnemonicParsing="false" onAction="#switchToPagarFactures" prefHeight="40.0" prefWidth="194.0" text="Pagar factures">
+               <font>
+                  <Font size="18.0" />
+               </font></Button>
+            <Label layoutX="69.0" layoutY="24.0" prefHeight="74.0" prefWidth="304.0" text="Caixer Automàtic">
+               <font>
+                  <Font size="40.0" />
                </font>
             </Label>
-            <Button fx:id="consultar" layoutX="2.0" layoutY="90.0" mnemonicParsing="false" onAction="#switchToConsultar" prefHeight="30.0" prefWidth="142.0" text="Consultar saldo" />
-            <Button fx:id="retirar" layoutX="3.0" layoutY="134.0" mnemonicParsing="false" onAction="#switchToRetirar" prefHeight="30.0" prefWidth="141.0" text="Retirar diners" />
-            <Button fx:id="transferencia" layoutX="2.0" layoutY="175.0" mnemonicParsing="false" onAction="#switchToTransferencia" prefHeight="30.0" prefWidth="142.0" text="Realitzar trasferencia" />
-            <Button fx:id="canviarClau" layoutX="155.0" layoutY="175.0" mnemonicParsing="false" onAction="#switchToClau" prefHeight="30.0" prefWidth="141.0" text="Canviar clau d'accés" />
-            <Button fx:id="logout" layoutX="79.0" layoutY="221.0" mnemonicParsing="false" onAction="#switchToLogout" prefHeight="30.0" prefWidth="142.0" text="Logout" />
-            <Button fx:id="ingresar" layoutX="3.0" layoutY="52.0" mnemonicParsing="false" onAction="#switchToIngresar" prefHeight="30.0" prefWidth="142.0" text="Ingresar diners" />
-            <Button layoutX="155.0" layoutY="52.0" mnemonicParsing="false" onAction="#switchToBizum" prefHeight="30.0" prefWidth="142.0" text="Bizum" />
-            <Button layoutX="155.0" layoutY="90.0" mnemonicParsing="false" onAction="#switchToCrearCompte" prefHeight="30.0" prefWidth="142.0" text="Crear compte" />
-            <Button layoutX="155.0" layoutY="134.0" mnemonicParsing="false" onAction="#switchToPagarFactures" prefHeight="30.0" prefWidth="142.0" text="Pagar factures" />
          </children>
       </AnchorPane>
    </children>

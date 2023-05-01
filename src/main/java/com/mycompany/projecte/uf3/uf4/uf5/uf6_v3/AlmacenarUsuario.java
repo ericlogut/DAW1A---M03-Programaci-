@@ -7,6 +7,7 @@ package com.mycompany.projecte.uf3.uf4.uf5.uf6_v3;
 /**
  *
  * @author ericl
+ * Utilitzo aquesta classe per emmagatzemar la id del usuari registrat
  */
 public class AlmacenarUsuario {
         public static int usuari = 1;
