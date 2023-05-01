@@ -21,39 +21,46 @@ public class LoginController {
     @FXML
     Label errorLabel;
     
+    int contErrors = 0;
+    
     public void button(ActionEvent actionEvent) throws SQLException, IOException {
-        ConnectionClass connectionClass = new ConnectionClass();
-        Connection connection = connectionClass.getConnection();
-        
-        String nom = nomLogin.getText();
-        String contrasenya = pswdLogin.getText();
-        
+        if (contErrors < 3) {
+            ConnectionClass connectionClass = new ConnectionClass();
+            Connection connection = connectionClass.getConnection();
 
-        String selectSql = "SELECT * FROM usuaris";
-        Statement selectStatement = connection.createStatement();
-        ResultSet resultSet = selectStatement.executeQuery(selectSql);
-        
-        StringBuilder result = new StringBuilder();
-        
-        boolean loginCorrecte = false;
-        
-        while (resultSet.next()) {
-            
-            if (resultSet.getString("nom").equals(nom) && resultSet.getString("contrasenya").equals(contrasenya)) {
-                loginCorrecte = true;
-                
-                AlmacenarUsuario.usuari = Integer.parseInt(resultSet.getString("id"));
-                System.out.println( AlmacenarUsuario.usuari );
-                switchToMenu();
+            String nom = nomLogin.getText();
+            String contrasenya = pswdLogin.getText();
+
+
+            String selectSql = "SELECT * FROM usuaris";
+            Statement selectStatement = connection.createStatement();
+            ResultSet resultSet = selectStatement.executeQuery(selectSql);
+
+            StringBuilder result = new StringBuilder();
+
+            boolean loginCorrecte = false;
+
+            while (resultSet.next()) {
+
+                if (resultSet.getString("nom").equals(nom) && resultSet.getString("contrasenya").equals(contrasenya)) {
+                    loginCorrecte = true;
+
+                    AlmacenarUsuario.usuari = Integer.parseInt(resultSet.getString("id"));
+                    System.out.println( AlmacenarUsuario.usuari );
+                    switchToMenu();
+                }
             }
-        }
-        if (!(loginCorrecte)) {
-            errorLabel.setText("El teu compte no existeix");
-        }
+            if (!(loginCorrecte)) {
+                errorLabel.setText("El teu compte no existeix");
+                contErrors++;
+            }
 
-        resultSet.close();
-        selectStatement.close();
-        connection.close();
+            resultSet.close();
+            selectStatement.close();
+            connection.close();
+        } else {
+            errorLabel.setText("Has superat el màxim nombre d'intents");
+        }
     }   
     
     private void switchToMenu() throws IOException {

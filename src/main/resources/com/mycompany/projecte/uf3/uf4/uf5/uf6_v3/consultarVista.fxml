@@ -23,8 +23,11 @@
             <Label layoutX="79.0" layoutY="89.0" prefHeight="18.0" prefWidth="142.0" text="Saldo total" />
             <Label layoutX="79.0" layoutY="141.0" prefHeight="18.0" prefWidth="142.0" text="Saldo en comptes" />
             <Label fx:id="saldoTotal" layoutX="79.0" layoutY="110.0" prefHeight="18.0" prefWidth="142.0" text="0" />
-            <Button fx:id="botoClau1" layoutX="107.0" layoutY="221.0" mnemonicParsing="false" onAction="#switchToMenu" prefHeight="26.0" prefWidth="86.0" text="Tornar" />
+            <Button fx:id="botoClau1" layoutX="166.0" layoutY="254.0" mnemonicParsing="false" onAction="#switchToMenu" prefHeight="26.0" prefWidth="86.0" text="Tornar" />
             <ChoiceBox fx:id="compteEscollit" layoutX="79.0" layoutY="161.0" prefWidth="150.0" />
+            <ChoiceBox fx:id="targetaAss" layoutX="79.0" layoutY="214.0" prefWidth="150.0" />
+            <Label layoutX="79.0" layoutY="195.0" prefHeight="18.0" prefWidth="142.0" text="Targetes associades" />
+            <Button fx:id="ConsultarTargetes" layoutX="43.0" layoutY="254.0" mnemonicParsing="false" onAction="#cargarTargetes" prefHeight="26.0" prefWidth="110.0" text="Carrega targetes" />
          </children>
       </AnchorPane>
    </children>

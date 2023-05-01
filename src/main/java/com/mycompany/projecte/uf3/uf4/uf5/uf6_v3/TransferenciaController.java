@@ -2,9 +2,12 @@ package com.mycompany.projecte.uf3.uf4.uf5.uf6_v3;
 
 import java.io.IOException;
 import java.sql.Connection;
+import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.regex.Matcher;
@@ -109,5 +112,29 @@ public class TransferenciaController {
         Statement updateStatement2 = connection.prepareStatement(updateSql2);
         updateStatement2.executeUpdate(updateSql2);
         initialize();
+        registraMoviment(valorInt1,valorInt2);
+    }
+    
+    public void registraMoviment(int compteIdOri, int compteIdDes) throws SQLException {
+        // Obtener la fecha actual
+        LocalDate fechaActual = LocalDate.now();
+
+        // Crear un formateador de fecha con el patrón "yyyy-MM-dd"
+        DateTimeFormatter formateador = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+
+        // Formatear la fecha actual usando el formateador
+        String fechaFormateada = fechaActual.format(formateador);
+
+        String selectSql = "INSERT INTO moviment (tipusDeMoviment, data, quantitat, compteOrigen_id, compteDesti_id) \n" +
+            "VALUES ('Transferencia', '"+fechaFormateada+"', "+Double.parseDouble(quantitatTransferir.getText())+", "+compteIdOri+","+compteIdDes+");";
+
+        PreparedStatement stmt = connection.prepareStatement(selectSql);
+        int rowsAffected = stmt.executeUpdate();
+
+        if (rowsAffected > 0) {
+            System.out.println("El registro se insertó correctamente.");
+        } else {
+            System.out.println("El registro no se insertó correctamente.");
+        }
     }
 }

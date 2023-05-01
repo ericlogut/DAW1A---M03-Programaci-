@@ -6,9 +6,12 @@ package com.mycompany.projecte.uf3.uf4.uf5.uf6_v3;
 
 import java.io.IOException;
 import java.sql.Connection;
+import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
 import javafx.collections.FXCollections;
@@ -141,10 +144,34 @@ public class FacturesController {
             Statement updateStatement2 = connection.prepareStatement(updateSql2);
             updateStatement2.executeUpdate(updateSql2);
             
+            registraMoviment(idCompte,valorFactura);
             initialize();
         } else {
             // Error por negativo
         }
         System.out.println(Resta);
+    }
+    
+    public void registraMoviment(int compteId, double preuFactura) throws SQLException {
+        // Obtener la fecha actual
+        LocalDate fechaActual = LocalDate.now();
+
+        // Crear un formateador de fecha con el patrón "yyyy-MM-dd"
+        DateTimeFormatter formateador = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+
+        // Formatear la fecha actual usando el formateador
+        String fechaFormateada = fechaActual.format(formateador);
+
+        String selectSql = "INSERT INTO moviment (tipusDeMoviment, data, quantitat, compteOrigen_id) \n" +
+            "VALUES ('Factura', '"+fechaFormateada+"', "+preuFactura+", "+compteId+");";
+
+        PreparedStatement stmt = connection.prepareStatement(selectSql);
+        int rowsAffected = stmt.executeUpdate();
+
+        if (rowsAffected > 0) {
+            System.out.println("El registro se insertó correctamente.");
+        } else {
+            System.out.println("El registro no se insertó correctamente.");
+        }
     }
 }

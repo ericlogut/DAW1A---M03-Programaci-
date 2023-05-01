@@ -6,9 +6,12 @@ package com.mycompany.projecte.uf3.uf4.uf5.uf6_v3;
 
 import java.io.IOException;
 import java.sql.Connection;
+import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.regex.Matcher;
@@ -111,9 +114,58 @@ public class BizumController {
         String updateSql2 = "UPDATE compte c JOIN usuaris u ON c.usuari_id = u.id SET c.saldo = c.saldo + " + Double.parseDouble(quantitatTransferir.getText()) + " WHERE u.nom = '" + usuariTrans.getValue() + "' LIMIT 1";
         Statement updateStatement2 = connection.prepareStatement(updateSql2);
         updateStatement2.executeUpdate(updateSql2);
+        
+        String selectSql = "SELECT id FROM usuaris WHERE nom = '"+usuariTrans.getValue()+"'";
+        Statement selectStatement = connection.createStatement();
+        ResultSet resultSet = selectStatement.executeQuery(selectSql);
+
+        if (resultSet.next()) {
+            int usuariId = resultSet.getInt("id");
+
+            String compteSql = "SELECT * FROM compte WHERE usuari_id = "+usuariId+" LIMIT 1";
+            Statement compteStatement = connection.createStatement();
+            ResultSet compteResultSet = compteStatement.executeQuery(compteSql);
+
+            if (compteResultSet.next()) {
+                // aquí puedes obtener los valores de la primera cuenta encontrada
+                int compteId = compteResultSet.getInt("id");
+                // otros valores de la cuenta que te interesen
+                registraMoviment(valorInt1,compteId);
+            } else {
+                System.out.println("El usuario no tiene ninguna cuenta asociada");
+            }
+        } else {
+            System.out.println("No se encontró ningún usuario con el nombre proporcionado");
+        }
+
+        
         initialize();
+        
+
     }
 
+    public void registraMoviment(int compteIdOri, int compteIdDes) throws SQLException {
+        // Obtener la fecha actual
+        LocalDate fechaActual = LocalDate.now();
+
+        // Crear un formateador de fecha con el patrón "yyyy-MM-dd"
+        DateTimeFormatter formateador = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+
+        // Formatear la fecha actual usando el formateador
+        String fechaFormateada = fechaActual.format(formateador);
+
+        String selectSql = "INSERT INTO moviment (tipusDeMoviment, data, quantitat, compteOrigen_id, compteDesti_id) \n" +
+            "VALUES ('Bizum', '"+fechaFormateada+"', "+Double.parseDouble(quantitatTransferir.getText())+", "+compteIdOri+","+compteIdDes+");";
+
+        PreparedStatement stmt = connection.prepareStatement(selectSql);
+        int rowsAffected = stmt.executeUpdate();
+
+        if (rowsAffected > 0) {
+            System.out.println("El registro se insertó correctamente.");
+        } else {
+            System.out.println("El registro no se insertó correctamente.");
+        }
+    }
 
     
     
