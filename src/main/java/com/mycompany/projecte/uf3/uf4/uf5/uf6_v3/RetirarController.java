@@ -56,6 +56,11 @@ public class RetirarController {
     ConnectionClass connectionClass = new ConnectionClass();
     Connection connection = connectionClass.getConnection();
     
+    /**
+    * Aquest mètode s'anomena quan es carrega la vista.
+    * Recupera els comptes de l'usuari que ha iniciat sessió de la base de dades i n'omple el ChoiceBox.
+    * @throws SQLException si hi ha un error en executar la consulta SQL
+    */
     @FXML
     public void initialize() throws SQLException {
         String selectSql = "SELECT * FROM compte WHERE usuari_id = "+AlmacenarUsuario.usuari;
@@ -74,6 +79,15 @@ public class RetirarController {
         compteEscollit.setItems(opcionesObservable);
     }
 
+    /**
+     * Aquest mètode s'anomena quan l'usuari fa clic al botó "Retirar". Retira
+     * la quantitat especificada de diners del compte seleccionat i actualitza
+     * el seu saldo a la base de dades. També registra la retirada a la taula
+     * "moviment" i actualitza l'inventari de bitllets a la taula
+     * "inventari_billets".
+     *
+     * @throws SQLException si hi ha un error en executar la consulta SQL
+     */
     public void retirarDiners() throws SQLException {
         
         String opcioSeleccionada = compteEscollit.getValue();
@@ -113,6 +127,13 @@ public class RetirarController {
         initialize();
     }
     
+    /**
+    * Registra un moviment de retirada d'efectiu a la base de dades amb la informació
+    * proporcionada per l'usuari.
+    * 
+    * @param compteId Identificador del compte del qual es retira l'efectiu.
+    * @throws SQLException Si hi ha algun problema amb l'accés a la base de dades.
+    */
     public void registraMoviment(int compteId) throws SQLException {
         // Obtener la fecha actual
         LocalDate fechaActual = LocalDate.now();
@@ -137,6 +158,10 @@ public class RetirarController {
         }
     }
     
+    /**
+    * Calcula la quantitat total d'efectiu que es retirarà basant-se en el nombre
+    * de bitllets de cada denominació que s'han introduït per l'usuari.
+    */
     public void calcularDiners () {
         try {
             int quantBitllets5 = Integer.parseInt(bill5.getText().isEmpty() ? "0" : bill5.getText());
@@ -163,10 +188,14 @@ public class RetirarController {
         }
     }
     
+    /**
+    * Actualitza el registre de l'inventari de bitllets amb les quantitats corresponents
+    * a les denominacions de bitllets que s'han introduït per l'usuari.
+    * 
+    * @throws SQLException Si hi ha algun problema amb l'accés
+    */
     public void actualitzarInventari() throws SQLException {
-        // asumiendo que ya tienes una conexión a la base de datos establecida
-
-        // preparar la consulta SQL
+        // Preparar la consulta SQL
         String updateSql = "UPDATE inventari_billets " +
                 "SET quantitat = CASE valor_bitllet " +
                 "WHEN 5 THEN quantitat - ? " +
@@ -179,10 +208,10 @@ public class RetirarController {
                 "END " +
                 "WHERE valor_bitllet IN (5, 10, 20, 50, 100, 200, 500)";
 
-        // preparar el statement con la consulta SQL
+        // Preparar el statement de la consulta SQL
         PreparedStatement updateStatement = connection.prepareStatement(updateSql);
 
-        // establecer los nuevos valores para cada denominación de billete
+        // Establir els nous valors
         updateStatement.setInt(1, Integer.parseInt(bill5.getText()));
         updateStatement.setInt(2, Integer.parseInt(bill10.getText()));
         updateStatement.setInt(3, Integer.parseInt(bill20.getText()));
@@ -191,14 +220,14 @@ public class RetirarController {
         updateStatement.setInt(6, Integer.parseInt(bill200.getText()));
         updateStatement.setInt(7, Integer.parseInt(bill500.getText()));
 
-        // ejecutar la actualización
+        // Executa update
         int rowsAffected = updateStatement.executeUpdate();
 
-        // verificar si se actualizaron filas
+        // Verifica actualització
         if (rowsAffected > 0) {
-            System.out.println("Se actualizaron " + rowsAffected + " filas.");
+            System.out.println("S'han actualitzat " + rowsAffected + " files.");
         } else {
-            System.out.println("No se actualizaron filas.");
+            System.out.println("No s'han actualitzat");
         }
     }
 }

@@ -14,7 +14,11 @@ import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 
 public class ClauController {
-
+    
+    /**
+    * Funció per poder tornar a la vista de menu
+    * @throws IOException si hi ha algún error en la vista
+    */
     @FXML
     private void switchToMenu() throws IOException {
         App.setRoot("menu");
@@ -35,6 +39,10 @@ public class ClauController {
     ConnectionClass connectionClass = new ConnectionClass();
     Connection connection = connectionClass.getConnection();
     
+    /**
+    * Comprova si les claus d'accés coincideixen i actualitza la contrasenya de l'usuari a la nova clau.
+    * @throws SQLException Si hi ha un error en l'execució de la consulta SQL.
+    */
     @FXML
     public void comprovarClaus() throws SQLException {
         String selectSql = "SELECT * FROM usuaris WHERE id = "+AlmacenarUsuario.usuari;

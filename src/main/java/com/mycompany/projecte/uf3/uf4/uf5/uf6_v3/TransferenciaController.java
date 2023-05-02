@@ -18,10 +18,16 @@ import javafx.fxml.FXML;
 import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.TextField;
 
+/**
+* Controlador per a la pantalla de transferències.
+*/
 public class TransferenciaController {
 
-    @FXML
-    
+    /**
+    * Funció que redirigeix l'usuari a la pantalla de menú principal.
+    * @throws IOException si hi ha problemes amb la càrrega de la pantalla.
+    */
+    @FXML    
     private void switchToMenu() throws IOException {
         App.setRoot("menu");
     }
@@ -38,6 +44,11 @@ public class TransferenciaController {
     ConnectionClass connectionClass = new ConnectionClass();
     Connection connection = connectionClass.getConnection();
     
+    /**
+    * Funció que s'executa al carregar la pantalla de transferències.
+    * Obtinguem els comptes disponibles per a l'usuari i els afegim als ChoiceBox corresponents.
+    * @throws SQLException si hi ha problemes amb la connexió a la base de dades.
+    */
     @FXML
     public void initialize() throws SQLException {
         String selectSql = "SELECT * FROM compte WHERE usuari_id = "+AlmacenarUsuario.usuari;
@@ -57,6 +68,12 @@ public class TransferenciaController {
         compteTrans2.setItems(opcionesObservable);
     }
 
+    /**
+    * Funció que es crida quan l'usuari prem el botó de transferència de diners.
+    * Obtenim les dades dels ChoiceBox i del camp de text i actualitzem els saldos dels comptes corresponents.
+    * També registrem el moviment a la base de dades.
+    * @throws SQLException si hi ha problemes amb la connexió a la base de dades.
+    */
     public void moureDiners() throws SQLException {
         
         String opcioSeleccionada1 = compteTrans1.getValue();
@@ -115,14 +132,20 @@ public class TransferenciaController {
         registraMoviment(valorInt1,valorInt2);
     }
     
+    /**
+    * Registra una nova transferència amb la informació proporcionada.
+    * @param compteIdOri l'ID del compte origen de la transferència.
+    * @param compteIdDes l'ID del compte destí de la transferència.
+    * @throws SQLException si hi ha un error en la connexió a la base de dades.
+    */
     public void registraMoviment(int compteIdOri, int compteIdDes) throws SQLException {
-        // Obtener la fecha actual
+        // Obtenir la data actual
         LocalDate fechaActual = LocalDate.now();
 
-        // Crear un formateador de fecha con el patrón "yyyy-MM-dd"
+        // Crear format per la data"yyyy-MM-dd"
         DateTimeFormatter formateador = DateTimeFormatter.ofPattern("yyyy-MM-dd");
 
-        // Formatear la fecha actual usando el formateador
+        // Donar format a la data actual
         String fechaFormateada = fechaActual.format(formateador);
 
         String selectSql = "INSERT INTO moviment (tipusDeMoviment, data, quantitat, compteOrigen_id, compteDesti_id) \n" +
@@ -132,9 +155,9 @@ public class TransferenciaController {
         int rowsAffected = stmt.executeUpdate();
 
         if (rowsAffected > 0) {
-            System.out.println("El registro se insertó correctamente.");
+            System.out.println("El registre ha funcionat correctament.");
         } else {
-            System.out.println("El registro no se insertó correctamente.");
+            System.out.println("El registre no ha funcionat correctament.");
         }
     }
 }

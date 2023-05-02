@@ -19,8 +19,8 @@ import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.TextField;
 
 /**
- *
- * @author ericl
+ * Controlador per a la vista de creació de nous comptes.
+ * Permet als usuaris crear nous comptes amb un tipus de compte i una quantitat inicial.
  */
 public class NouCompteController {
     
@@ -28,24 +28,28 @@ public class NouCompteController {
     ChoiceBox<String> tipusCompte;
     
     @FXML
-    TextField quantitatIngresar;
-    
-    @FXML
-    private void switchToMenu() throws IOException {
-        App.setRoot("menu");
-    }
+    TextField quantitatIngresar;    
     
     ConnectionClass connectionClass = new ConnectionClass();
     Connection connection = connectionClass.getConnection();
     
+    /**
+     * Configura el ChoiceBox tipusCompte amb els valors "Estalvi" i "Corrent" i el valor predeterminat com "Estalvi".
+     */
     @FXML
     public void initialize() {
         tipusCompte.getItems().addAll("Estalvi", "Corrent");
         tipusCompte.setValue("Estalvi"); // Valor predeterminado
     }
     
+    /**
+     * Afegeix un nou compte a la base de dades amb les dades especificades pel usuari.
+     * Es crida quan l'usuari fa clic al botó "Afegir Compte".
+     * @throws SQLException Si hi ha algun error en la comunicació amb la base de dades.
+     */
     @FXML
     public void afegirCompte() throws SQLException {
+        // Obtenir l'ID màxim actual de la taula compte
         String selectSql = "SELECT MAX(id) FROM compte";
         PreparedStatement stmt = connection.prepareStatement(selectSql);
         ResultSet rs = stmt.executeQuery();
@@ -58,6 +62,7 @@ public class NouCompteController {
         }
 
         try {
+            // Inserir un nou compte amb les dades especificades per l'usuari
             String insertSql = "INSERT INTO compte (id, tipusDeCompte, saldo, usuari_id) VALUES (?, ?, ?, ?)";
             PreparedStatement stmt2 = connection.prepareStatement(insertSql);
             stmt2.setInt(1, idMaximo+1);
@@ -71,8 +76,17 @@ public class NouCompteController {
             rs.close();
             stmt.close();
         } catch (SQLException e) {
-            // Manejar la excepción
+            // Manejar l'excepció
         }
     }
-
+    
+    /**
+     * Canvia la vista actual per la vista del menú principal de l'aplicació.
+     * Es crida quan l'usuari fa clic al botó "Menu".
+     * @throws IOException Si hi ha algun error en la carrega de la vista del menú.
+     */
+    @FXML
+    private void switchToMenu() throws IOException {
+        App.setRoot("menu");
+    }
 }

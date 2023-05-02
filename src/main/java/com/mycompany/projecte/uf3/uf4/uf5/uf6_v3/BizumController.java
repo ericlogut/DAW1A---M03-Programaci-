@@ -24,11 +24,15 @@ import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 
 /**
- *
+ * Controlador associat a la vista de Bizum
  * @author ericl
  */
 public class BizumController {
     
+    /**
+    * Funció per poder tornar a la vista de menu
+    * @throws IOException si hi ha algún error en la vista
+    */
     @FXML
     private void switchToMenu() throws IOException {
         App.setRoot("menu");
@@ -55,51 +59,60 @@ public class BizumController {
     */
     @FXML
     public void initialize() throws SQLException {
-    String selectSql = "SELECT * FROM usuaris";
-    Statement selectStatement = connection.createStatement();
-    ResultSet resultSet = selectStatement.executeQuery(selectSql);
+        String selectSql = "SELECT * FROM usuaris";
+        Statement selectStatement = connection.createStatement();
+        ResultSet resultSet = selectStatement.executeQuery(selectSql);
 
-    List<String> opcions = new ArrayList<>();
+        List<String> opcions = new ArrayList<>();
 
-    while (resultSet.next()) {
-    opcions.add(resultSet.getString("nom"));
-    }
+        while (resultSet.next()) {
+            opcions.add(resultSet.getString("nom"));
+        }
 
-    ObservableList<String> opcionsObservable = FXCollections.observableArrayList(opcions);
-    usuariTrans.setItems(opcionsObservable);
+        ObservableList<String> opcionsObservable = FXCollections.observableArrayList(opcions);
+        usuariTrans.setItems(opcionsObservable);
 
-    String selectSql2 = "SELECT * FROM compte WHERE usuari_id = " + AlmacenarUsuario.usuari;
-    Statement selectStatement2 = connection.createStatement();
-    ResultSet resultSet2 = selectStatement2.executeQuery(selectSql2);
+        String selectSql2 = "SELECT * FROM compte WHERE usuari_id = " + AlmacenarUsuario.usuari;
+        Statement selectStatement2 = connection.createStatement();
+        ResultSet resultSet2 = selectStatement2.executeQuery(selectSql2);
 
-    List<String> opcions2 = new ArrayList<>();
+        List<String> opcions2 = new ArrayList<>();
 
-    while (resultSet2.next()) {
-    opcions2.add("Compte " + resultSet2.getString("id") + ": " + resultSet2.getString("saldo"));
-    }
+        while (resultSet2.next()) {
+            opcions2.add("Compte " + resultSet2.getString("id") + ": " + resultSet2.getString("saldo"));
+        }
 
-    ObservableList<String> opcionsObservable2 = FXCollections.observableArrayList(opcions2);
-    compteTrans.setItems(opcionsObservable2);
+        ObservableList<String> opcionsObservable2 = FXCollections.observableArrayList(opcions2);
+        compteTrans.setItems(opcionsObservable2);
     }
     
+    /**
+    * Mètode que permet moure diners d'un compte a un altre.
+    * Utilitza el valor seleccionat al ComboBox compteTrans per obtenir el compte origen de la transferència, i mitjançant una expressió regular
+    * obté el valor numèric corresponent.
+    * També obté la quantitat de diners a transferir a partir del contingut del TextField quantitatTransferir.
+    * Realitza les actualitzacions corresponents a les bases de dades per transferir els diners de l'origen al destí.
+    * Finalment, registra el moviment al registre de moviments cridant el mètode registraMoviment().
+    * En cas d'error en la transferència, es manté el saldo original del compte origen.
+    * @throws SQLException
+    */
     public void moureDiners() throws SQLException {
         
         String opcioSeleccionada1 = compteTrans.getValue(); 
         
-        // Utiliza una expresión regular para encontrar el valor numérico entre "Compte " y ":"
+        // Expressio regular per extreure dades del ChoiceBox
         String regex = "Compte\\s(\\d+):\\s\\d+\\.\\d+"; // Patrón regular
         Pattern pattern = Pattern.compile(regex);
         Matcher matcher = pattern.matcher(opcioSeleccionada1);
         
         int valorInt1 = 0;
-        // Verifica si se encuentra el patrón y obtén el valor de la "X"
+        
         if (matcher.find()) {
             String valorX = matcher.group(1);
             valorInt1 = Integer.parseInt(valorX);
-            System.out.println("Valor de X: " + valorInt1);
-            // Realiza las acciones necesarias con el valor de X
+            System.out.println("Valor de la ID: " + valorInt1);
         } else {
-            System.out.println("No se encontró el valor de X");
+            System.out.println("No s'ha trobar la ID");
         }
         
         String textFieldContent = quantitatTransferir.getText();
@@ -107,11 +120,9 @@ public class BizumController {
         
         try {
             valorDouble = Double.parseDouble(textFieldContent);
-            System.out.println("El contenido del TextField es un número double: " + valorDouble);
-            // Realiza las acciones necesarias con el valor double
+            System.out.println("El contingut del TextField es un número double: " + valorDouble);
         } catch (NumberFormatException e) {
-            System.out.println("El contenido del TextField no es un número double válido");
-            // Realiza las acciones necesarias en caso de excepción
+            System.out.println("El contingut del TextField no es un número double vàlid");
             valorDouble = 0;
         }
         
@@ -135,31 +146,32 @@ public class BizumController {
             ResultSet compteResultSet = compteStatement.executeQuery(compteSql);
 
             if (compteResultSet.next()) {
-                // aquí puedes obtener los valores de la primera cuenta encontrada
                 int compteId = compteResultSet.getInt("id");
-                // otros valores de la cuenta que te interesen
                 registraMoviment(valorInt1,compteId);
             } else {
-                System.out.println("El usuario no tiene ninguna cuenta asociada");
+                System.out.println("El usuari no té cap compte associat");
             }
         } else {
-            System.out.println("No se encontró ningún usuario con el nombre proporcionado");
+            System.out.println("No s'ha trobat un usuari amb el nom proporcionat");
         }
-
-        
         initialize();
-        
-
     }
 
+    /**
+    * Registra un moviment de tipus "Bizum" en la base de dades amb les dades dels comptes implicats i la quantitat transferida.
+    * La data del moviment és la data actual en format "yyyy-MM-dd".
+    * @param compteIdOri ID del compte origen de la transferència.
+    * @param compteIdDes ID del compte destinatari de la transferència.
+    * @throws SQLException Si hi ha un error en l'execució de la consulta SQL per insertar el moviment.
+    */
     public void registraMoviment(int compteIdOri, int compteIdDes) throws SQLException {
-        // Obtener la fecha actual
+        // Obtenir data actual
         LocalDate fechaActual = LocalDate.now();
 
-        // Crear un formateador de fecha con el patrón "yyyy-MM-dd"
+        // Crear un format de data amb el patró "yyyy-MM-dd"
         DateTimeFormatter formateador = DateTimeFormatter.ofPattern("yyyy-MM-dd");
 
-        // Formatear la fecha actual usando el formateador
+        // Donar format a la data
         String fechaFormateada = fechaActual.format(formateador);
 
         String selectSql = "INSERT INTO moviment (tipusDeMoviment, data, quantitat, compteOrigen_id, compteDesti_id) \n" +
@@ -173,9 +185,5 @@ public class BizumController {
         } else {
             Error.setText("El bizum no s'ha realitzar correctament.");
         }
-    }
-
-    
-    
-            
+    }     
 }

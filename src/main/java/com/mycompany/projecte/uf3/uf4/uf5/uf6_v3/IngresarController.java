@@ -52,6 +52,11 @@ public class IngresarController {
     ConnectionClass connectionClass = new ConnectionClass();
     Connection connection = connectionClass.getConnection();
     
+    /**
+     * initialize(): Aquest mètode s'executa quan es carrega la vista del controlador i s'encarrega 
+     * d'omplir el ChoiceBox amb els comptes de l'usuari.
+     * @throws SQLException 
+     */
     @FXML
     public void initialize() throws SQLException {
         String selectSql = "SELECT * FROM compte WHERE usuari_id = "+AlmacenarUsuario.usuari;
@@ -69,7 +74,11 @@ public class IngresarController {
         ObservableList<String> opcionesObservable = FXCollections.observableArrayList(opciones);
         compteIngresar.setItems(opcionesObservable);
     }
-
+    /**
+     * ingresarDiners(): Aquest mètode s'executa quan es fa clic al botó per a ingressar diners. 
+     * Obté el compte seleccionat i la quantitat d'ingrés i actualitza la base de dades amb les dades corresponents.
+     * @throws SQLException 
+     */
     public void ingresarDiners() throws SQLException {
         
         String opcioSeleccionada = compteIngresar.getValue();
@@ -109,6 +118,12 @@ public class IngresarController {
         initialize();
     }
     
+    /**
+     * Aquest mètode s'encarrega d'enregistrar un nou moviment a la base de dades. 
+     * El paràmetre compteId indica a quin compte s'ha fet l'ingrés.
+     * @param compteId
+     * @throws SQLException 
+     */
     public void registraMoviment(int compteId) throws SQLException {
         // Obtener la fecha actual
         LocalDate fechaActual = LocalDate.now();
@@ -133,6 +148,10 @@ public class IngresarController {
         }
     }
     
+    /**
+     * Aquest mètode s'executa quan es fa clic al botó per a calcular la quantitat d'ingrés a partir dels bitllets que es volen ingressar. 
+     * Calcula la quantitat total i la mostra al TextField corresponent.
+     */
     public void calcularDiners () {
         try {
             int quantBitllets5 = Integer.parseInt(bill5.getText().isEmpty() ? "0" : bill5.getText());
@@ -159,10 +178,12 @@ public class IngresarController {
         }
     }
     
+    /**
+     * Aquest mètode s'executa quan es fa un ingrés de bitllets i actualitza la taula inventari_billets de la base de dades amb les noves dades.
+     * @throws SQLException 
+     */
     public void actualitzarInventari() throws SQLException {
-        // asumiendo que ya tienes una conexión a la base de datos establecida
-
-        // preparar la consulta SQL
+        // Preparar la consulta SQL
         String updateSql = "UPDATE inventari_billets " +
                 "SET quantitat = CASE valor_bitllet " +
                 "WHEN 5 THEN quantitat + ? " +
@@ -175,10 +196,10 @@ public class IngresarController {
                 "END " +
                 "WHERE valor_bitllet IN (5, 10, 20, 50, 100, 200, 500)";
 
-        // preparar el statement con la consulta SQL
+        // Preparar el statement amb la consulta SQL
         PreparedStatement updateStatement = connection.prepareStatement(updateSql);
 
-        // establecer los nuevos valores para cada denominación de billete
+        // Establir els novus valors
         updateStatement.setInt(1, Integer.parseInt(bill5.getText()));
         updateStatement.setInt(2, Integer.parseInt(bill10.getText()));
         updateStatement.setInt(3, Integer.parseInt(bill20.getText()));
@@ -187,19 +208,21 @@ public class IngresarController {
         updateStatement.setInt(6, Integer.parseInt(bill200.getText()));
         updateStatement.setInt(7, Integer.parseInt(bill500.getText()));
 
-        // ejecutar la actualización
+        // Executar l'actualització
         int rowsAffected = updateStatement.executeUpdate();
 
-        // verificar si se actualizaron filas
+        // Verificar si s'han actualitzat les files
         if (rowsAffected > 0) {
-            System.out.println("Se actualizaron " + rowsAffected + " filas.");
+            System.out.println("S'han actualitzat " + rowsAffected + " files.");
         } else {
-            System.out.println("No se actualizaron filas.");
+            System.out.println("No s'han actualitzat files.");
         }
     }
-
-
-
+    
+    /**
+     * Canvia la finestra actual per la finestra del menú principal.
+     * @throws IOException Si hi ha hagut un error al carregar la finestra del men
+     */
     @FXML
     private void switchToMenu() throws IOException {
         App.setRoot("menu");

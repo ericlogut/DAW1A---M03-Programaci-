@@ -23,12 +23,16 @@ import java.util.regex.Pattern;
 import javafx.util.Pair;
 
 /**
- *
+ * La classe FacturesController és un controlador d'una aplicació JavaFX que gestiona el pagament de factures a través d'un formulari gràfic.
  * @author ericl
  */
 public class FacturesController {
     int i = 0;
 
+    /**
+    * Canvia la finestra actual per la finestra del menú principal.
+    * @throws IOException Si hi ha hagut un error al carregar la finestra del men
+    */
     @FXML
     private void switchToMenu() throws IOException {
         App.setRoot("menu");
@@ -44,6 +48,12 @@ public class FacturesController {
     ConnectionClass connectionClass = new ConnectionClass();
     Connection connection = connectionClass.getConnection();
     
+    /**
+     * initialize: és el mètode que s'executa al inicialitzar el controlador. 
+     * Crea un ChoiceBox amb una llista de comptes bancaris i un altre ChoiceBox amb una llista de factures pendents de pagament. 
+     * Utilitza una connexió a la base de dades per a obtenir les dades.
+     * @throws SQLException 
+     */
     @FXML
     public void initialize() throws SQLException {
         String selectSql = "SELECT * FROM compte WHERE usuari_id = "+AlmacenarUsuario.usuari;
@@ -54,8 +64,6 @@ public class FacturesController {
 
         while (resultSet.next()) {
             opciones.add("Compte "+resultSet.getString("id")+": "+resultSet.getString("saldo")+"€");
-            // reemplaza 'nombre_de_la_columna' por el nombre real de la columna
-            // que contiene los valores que deseas mostrar en el ChoiceBox
         }
 
         ObservableList<String> opcionesObservable = FXCollections.observableArrayList(opciones);
@@ -71,8 +79,6 @@ public class FacturesController {
         while (resultSet2.next()) {
             i++;
             opciones2.add(i+". "+resultSet2.getString("descripcio")+": "+resultSet2.getString("total")+"€");
-            // reemplaza 'nombre_de_la_columna' por el nombre real de la columna
-            // que contiene los valores que deseas mostrar en el ChoiceBox
         }
         i = 0;
         ObservableList<String> opcionesObservable2 = FXCollections.observableArrayList(opciones2);
@@ -80,6 +86,13 @@ public class FacturesController {
 
     }
     
+    /**
+     * obtenerValoresCompte: és un mètode auxiliar que, donada una cadena de text, 
+     * cerca dins d'ella una informació concreta sobre el compte bancari (identificador i saldo). 
+     * Aquesta informació es retorna com un objecte Pair amb els dos valors.
+     * @param texto String del choiceBox
+     * @return 
+     */
     public static Pair<Integer, Double> obtenerValoresCompte(String texto) {
         Pattern pattern = Pattern.compile("Compte (\\d+):\\s*(\\d+(\\.\\d+)?)€");
         Matcher matcher = pattern.matcher(texto);
@@ -93,7 +106,11 @@ public class FacturesController {
         }
     }
     
-        
+    /**
+     * extraerValoresDeFactura: és un mètode auxiliar que, donada una cadena de text, 
+     * cerca dins d'ella els valors de la factura (identificador i import) i els retorna en un array.
+     * @return Informació de la factura 
+     */
     public double[] extraerValoresDeFactura() {
         Pattern pattern = Pattern.compile("\\s*(\\d+(\\.\\d+)?)\\.\\s*([^:]+):\\s*(\\d+(\\.\\d+)?)€\\s*");
         Matcher matcher = pattern.matcher(facturaSeleccionada.getValue());
@@ -109,11 +126,17 @@ public class FacturesController {
 
             return new double[] {z, y};
         } else {
-            return new double[] {0.0, 0.0}; // O cualquier valor predeterminado que desees devolver si no se encuentra una coincidencia
+            return new double[] {0.0, 0.0};
         }
     }
 
-    
+    /**
+     * pagarFactura: és el mètode que s'executa quan es prem el botó de pagament de la factura. 
+     * Obté les dades del compte bancari i de la factura seleccionats i els utilitza per a actualitzar la base de dades 
+     * (es resta l'import de la factura del saldo del compte bancari i es marca la factura com a pagada). 
+     * També crida el mètode registraMoviment per a registrar el moviment corresponent a la base de dades.
+     * @throws SQLException 
+     */
     @FXML
     public void pagarFactura() throws SQLException{
             
@@ -147,7 +170,7 @@ public class FacturesController {
             registraMoviment(idCompte,valorFactura);
             initialize();
         } else {
-            // Error por negativo
+            // Error por negatiu
         }
         System.out.println(Resta);
     }
@@ -169,9 +192,9 @@ public class FacturesController {
         int rowsAffected = stmt.executeUpdate();
 
         if (rowsAffected > 0) {
-            System.out.println("El registro se insertó correctamente.");
+            System.out.println("El registre s'ha realitzat correctament.");
         } else {
-            System.out.println("El registro no se insertó correctamente.");
+            System.out.println("El registre no s'ha realitzat correctament.");
         }
     }
 }

@@ -23,6 +23,15 @@ public class LoginController {
     
     int contErrors = 0;
     
+    /**
+     * aquest mètode es crida quan l'usuari fa clic al botó de connexió. 
+     * Comprova el nom d'usuari i la contrasenya introduïts, busca a la base de dades si existeix un usuari amb aquestes credencials, 
+     * i si ho fa, redirigeix l'usuari a la finestra del menú principal de l'aplicació. Si l'usuari introdueix credencials incorrectes, 
+     * la variable contErrors s'incrementa i es mostra un missatge d'error a la etiqueta errorLabel.
+     * @param actionEvent
+     * @throws SQLException
+     * @throws IOException 
+     */
     public void button(ActionEvent actionEvent) throws SQLException, IOException {
         if (contErrors < 3) {
             ConnectionClass connectionClass = new ConnectionClass();
@@ -63,6 +72,10 @@ public class LoginController {
         }
     }   
     
+    /**
+     * Canvia la finestra actual per la finestra del menú principal.
+     * @throws IOException Si hi ha hagut un error al carregar la finestra del men
+     */
     private void switchToMenu() throws IOException {
         App.setRoot("menu");
     }

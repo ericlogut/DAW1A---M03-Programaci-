@@ -5,8 +5,11 @@ import javafx.fxml.FXML;
 
 public class LogoutController {
 
+    /**
+     * Canvia la finestra actual per la finestra del menú principal.
+     * @throws IOException Si hi ha hagut un error al carregar la finestra del men
+     */
     @FXML
-    
     private void switchToMenu() throws IOException {
         App.setRoot("menu");
         AlmacenarUsuario.usuari = 0;
