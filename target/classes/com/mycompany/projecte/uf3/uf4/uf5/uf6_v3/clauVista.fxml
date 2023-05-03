@@ -24,7 +24,7 @@
                <font>
                   <Font size="18.0" />
                </font></TextField>
-            <Button fx:id="botoClau" layoutX="101.0" layoutY="321.0" mnemonicParsing="false" onAction="#comprovarClaus" prefHeight="40.0" prefWidth="139.0" text="Canviar clau">
+            <Button fx:id="botoClau" layoutX="101.0" layoutY="321.0" mnemonicParsing="false" onAction="#modificarClaus" prefHeight="40.0" prefWidth="139.0" text="Canviar clau">
                <font>
                   <Font size="18.0" />
                </font></Button>
@@ -44,7 +44,10 @@
                <font>
                   <Font size="18.0" />
                </font></Button>
-            <Label fx:id="errorLabel" layoutX="88.0" layoutY="267.0" prefHeight="18.0" prefWidth="139.0" />
+            <Label fx:id="errorLabel" layoutX="119.0" layoutY="375.0" prefHeight="27.0" prefWidth="223.0">
+               <font>
+                  <Font size="18.0" />
+               </font></Label>
             <TextField fx:id="novaClau" layoutX="118.0" layoutY="265.0">
                <font>
                   <Font size="18.0" />

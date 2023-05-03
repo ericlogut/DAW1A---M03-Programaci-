@@ -44,7 +44,7 @@ public class ClauController {
     * @throws SQLException Si hi ha un error en l'execució de la consulta SQL.
     */
     @FXML
-    public void comprovarClaus() throws SQLException {
+    public void modificarClaus() throws SQLException {
         String selectSql = "SELECT * FROM usuaris WHERE id = "+AlmacenarUsuario.usuari;
         Statement selectStatement = connection.createStatement();
         ResultSet resultSet = selectStatement.executeQuery(selectSql);
