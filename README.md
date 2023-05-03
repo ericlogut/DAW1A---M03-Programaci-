@@ -13,7 +13,7 @@ Els moviments de cada compte podran ser consultats pel client, incloent-hi infor
 L'aplicació s'ha implementat a Java i s'ha utilitzat JavaFX per a la interfície gràfica d'usuari. L'estructura del programa segueix l'arquitectura MVC i el model està estructurat a classe. S'ha fet un Diagrama UML de classes del model. També s'ha implementat la gestió d'errors i les excepcions i el codi està documentat amb notació Javadoc. S'han utilitzat col·leccions d'objectes (ArrayList o equivalents) per gestionar les llistes d'objectes en memòria. Les dades de l'operativa del programa s'emmagatzemen en fitxers de text, i s'han triat quines dades es volen emmagatzemar en almenys dues col·leccions/arxius per carregar-les en memòria i així inicialitzar el model construït. A més, s'ha utilitzat JDBC per treballar amb una base de dades SQL, cosa que permet accedir i manipular les dades emmagatzemades a la base de dades de manera eficient. En general, s'ha implementat una aplicació bancària completa i segura que compleix els requisits tècnics especificats.
 
 # Diagrama de classes
-
+![](https://github.com/ericlogut/ERIC_LG-M03-Programacio/blob/main/DiagramaDeClasses.png)
 
 # Explicació de les diferents funcionalitats
 ### AlmacenarUsuario:
