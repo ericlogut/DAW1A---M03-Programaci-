@@ -80,7 +80,7 @@ public class IngresarController {
      * @throws SQLException 
      */
     public void ingresarDiners() throws SQLException {
-        
+
         String opcioSeleccionada = compteIngresar.getValue();
         
         // Utiliza una expresión regular para encontrar el valor numérico entre "Compte " y ":"
@@ -100,7 +100,9 @@ public class IngresarController {
             System.out.println("No se encontró el valor de X");
         }
         
+
         String textFieldContent = quantitatIngresar.getText();
+        
         double valorDouble = 0;
         try {
             valorDouble = Double.parseDouble(textFieldContent);
@@ -136,10 +138,8 @@ public class IngresarController {
 
         String selectSql = "INSERT INTO moviment (tipusDeMoviment, data, quantitat, compteDesti_id) \n" +
             "VALUES ('Ingres', '"+fechaFormateada+"', "+Double.parseDouble(quantitatIngresar.getText())+", "+compteId+");";
-
         PreparedStatement stmt = connection.prepareStatement(selectSql);
         int rowsAffected = stmt.executeUpdate();
-
         if (rowsAffected > 0) {
             System.out.println("El registro se insertó correctamente.");
             actualitzarInventari();
@@ -163,7 +163,7 @@ public class IngresarController {
             int quantBitllets500 = Integer.parseInt(bill500.getText().isEmpty() ? "0" : bill500.getText());
 
 
-            int total = (5 * quantBitllets5) + 
+            double total = (5 * quantBitllets5) + 
                         (10 * quantBitllets10) +
                         (20 * quantBitllets20) +
                         (50 * quantBitllets50) +
@@ -183,41 +183,47 @@ public class IngresarController {
      * @throws SQLException 
      */
     public void actualitzarInventari() throws SQLException {
-        // Preparar la consulta SQL
-        String updateSql = "UPDATE inventari_billets " +
-                "SET quantitat = CASE valor_bitllet " +
-                "WHEN 5 THEN quantitat + ? " +
-                "WHEN 10 THEN quantitat + ? " +
-                "WHEN 20 THEN quantitat + ? " +
-                "WHEN 50 THEN quantitat + ? " +
-                "WHEN 100 THEN quantitat + ? " +
-                "WHEN 200 THEN quantitat + ? " +
-                "WHEN 500 THEN quantitat + ? " +
-                "END " +
-                "WHERE valor_bitllet IN (5, 10, 20, 50, 100, 200, 500)";
+    String updateSql = "UPDATE inventari_billets " +
+            "SET quantitat = CASE valor_bitllet " +
+            "WHEN 5 THEN quantitat + ? " +
+            "WHEN 10 THEN quantitat + ? " +
+            "WHEN 20 THEN quantitat + ? " +
+            "WHEN 50 THEN quantitat + ? " +
+            "WHEN 100 THEN quantitat + ? " +
+            "WHEN 200 THEN quantitat + ? " +
+            "WHEN 500 THEN quantitat + ? " +
+            "END " +
+            "WHERE valor_bitllet IN (5, 10, 20, 50, 100, 200, 500)";
 
-        // Preparar el statement amb la consulta SQL
-        PreparedStatement updateStatement = connection.prepareStatement(updateSql);
+    try (PreparedStatement updateStatement = connection.prepareStatement(updateSql)) {
+        // Establecer los nuevos valores y validar antes de convertirlos a enteros
+        updateStatement.setInt(1, parseAndValidateInteger(bill5.getText()));
+        updateStatement.setInt(2, parseAndValidateInteger(bill10.getText()));
+        updateStatement.setInt(3, parseAndValidateInteger(bill20.getText()));
+        updateStatement.setInt(4, parseAndValidateInteger(bill50.getText()));
+        updateStatement.setInt(5, parseAndValidateInteger(bill100.getText()));
+        updateStatement.setInt(6, parseAndValidateInteger(bill200.getText()));
+        updateStatement.setInt(7, parseAndValidateInteger(bill500.getText()));
 
-        // Establir els novus valors
-        updateStatement.setInt(1, Integer.parseInt(bill5.getText()));
-        updateStatement.setInt(2, Integer.parseInt(bill10.getText()));
-        updateStatement.setInt(3, Integer.parseInt(bill20.getText()));
-        updateStatement.setInt(4, Integer.parseInt(bill50.getText()));
-        updateStatement.setInt(5, Integer.parseInt(bill100.getText()));
-        updateStatement.setInt(6, Integer.parseInt(bill200.getText()));
-        updateStatement.setInt(7, Integer.parseInt(bill500.getText()));
-
-        // Executar l'actualització
         int rowsAffected = updateStatement.executeUpdate();
 
-        // Verificar si s'han actualitzat les files
         if (rowsAffected > 0) {
             System.out.println("S'han actualitzat " + rowsAffected + " files.");
         } else {
             System.out.println("No s'han actualitzat files.");
         }
     }
+}
+
+    private int parseAndValidateInteger(String value) {
+        try {
+            return Integer.parseInt(value);
+        } catch (NumberFormatException e) {
+            System.out.println("El valor '" + value + "' no es un número entero válido");
+            return 0;
+        }
+    }
+
     
     /**
      * Canvia la finestra actual per la finestra del menú principal.

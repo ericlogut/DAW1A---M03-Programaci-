@@ -21,7 +21,7 @@
                   <Font size="40.0" />
                </font>
             </Label>
-            <TextField fx:id="quantitatRetirar" editable="false" layoutX="243.0" layoutY="111.0" prefHeight="40.0" prefWidth="159.0">
+            <TextField fx:id="quantitatRetirar" editable="false" layoutX="243.0" layoutY="111.0" onMouseClicked="#calcularDiners" prefHeight="40.0" prefWidth="159.0">
                <font>
                   <Font size="18.0" />
                </font></TextField>
