@@ -19,7 +19,7 @@ public class ConnectionClass {
     public Connection getConnection () {
 
         /** Nom de la base de dades MySQL */
-        String dbName="caixerautomatic";
+        String dbName="caixerautomatic2";
         /** Nom d'usuari per connectar-se a MySQL */
         String userName="root";
         /** Contrasenya per connectar-se a MySQL */

@@ -181,9 +181,9 @@ public class BizumController {
         int rowsAffected = stmt.executeUpdate();
 
         if (rowsAffected > 0) {
-            Error.setText("El bizum s'ha realitzar correctament.");
+            Error.setText("El bizum s'ha realitzat correctament.");
         } else {
-            Error.setText("El bizum no s'ha realitzar correctament.");
+            Error.setText("El bizum no s'ha realitzat correctament.");
         }
     }     
 }

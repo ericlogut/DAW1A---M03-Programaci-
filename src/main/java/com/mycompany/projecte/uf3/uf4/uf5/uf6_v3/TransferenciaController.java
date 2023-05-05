@@ -16,6 +16,7 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.scene.control.ChoiceBox;
+import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 
 /**
@@ -40,6 +41,9 @@ public class TransferenciaController {
 
     @FXML
     TextField quantitatTransferir;
+    
+    @FXML
+    Label error;
 
     ConnectionClass connectionClass = new ConnectionClass();
     Connection connection = connectionClass.getConnection();
@@ -130,6 +134,7 @@ public class TransferenciaController {
         updateStatement2.executeUpdate(updateSql2);
         initialize();
         registraMoviment(valorInt1,valorInt2);
+        error.setText("La transferencia ha funcionat");
     }
     
     /**

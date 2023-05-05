@@ -16,6 +16,7 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.scene.control.ChoiceBox;
+import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 
 /**
@@ -28,7 +29,10 @@ public class NouCompteController {
     ChoiceBox<String> tipusCompte;
     
     @FXML
-    TextField quantitatIngresar;    
+    TextField quantitatIngresar;  
+    
+    @FXML
+    Label error;
     
     ConnectionClass connectionClass = new ConnectionClass();
     Connection connection = connectionClass.getConnection();
@@ -75,6 +79,7 @@ public class NouCompteController {
             stmt2.close();
             rs.close();
             stmt.close();
+            error.setText("S'ha creat el compte");
         } catch (SQLException e) {
             // Manejar l'excepció
         }

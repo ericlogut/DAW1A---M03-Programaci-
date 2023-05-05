@@ -17,6 +17,7 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.scene.control.ChoiceBox;
+import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 
 public class IngresarController {
@@ -48,6 +49,8 @@ public class IngresarController {
     @FXML
     TextField bill500;
       
+    @FXML
+    Label error;
 
     ConnectionClass connectionClass = new ConnectionClass();
     Connection connection = connectionClass.getConnection();
@@ -118,6 +121,7 @@ public class IngresarController {
         Statement updateStatement = connection.prepareStatement(updateSql);
         updateStatement.executeUpdate(updateSql);
         initialize();
+        error.setText("S'ha realitzat l'ingrés");
     }
     
     /**
