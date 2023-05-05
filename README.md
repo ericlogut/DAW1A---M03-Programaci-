@@ -1,5 +1,5 @@
 # ERIC_LG-M03-Programacio
-Avaluació Requeriments Projecte M3-UF3-UF4-UF5
+Documentació del projecte M3-UF3-UF4-UF5
 
 # Introducció
 Aquest projecte s'enfoca a implementar una aplicació bancària amb múltiples funcionalitats. L'aplicació permetrà als clients del banc iniciar sessió en un caixer a través de la inserció del vostre identificador d'usuari i contrasenya. Si la informació és correcta, l'aplicació mostrarà el menú d'opcions; si no, l'usuari rebrà un missatge d'error i no podrà operar. En cas que l'usuari no encerti la contrasenya en un nombre determinat d'intents, se'n bloquejarà l'accés.
