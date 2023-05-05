@@ -45,6 +45,8 @@ Finalment, si hi ha hagut algun error durant la connexió, el mètode imprimeix 
 
 Aquesta classe és útil perquè encapsula la lògica de connexió a la base de dades i permet reutilitzar aquesta lògica en altres parts del programa sense haver de copiar-la i enganxar-la. Això també fa que el codi sigui més fàcil de mantenir ja que si cal fer un canvi en la forma de connectar-se a la base de dades, només cal fer el canvi en un lloc.
 
+**IMPORTANT:** S'ha d'importar la base de dades per tal de poder fer funcionar l'aplicació
+
 ### ConsultarController
 La classe ConsultarController és el controlador per a la finestra de consulta del sistema de caixers automàtics. Aquesta finestra mostra el saldo total dels comptes de l'usuari, permet escollir un compte i mostra les targetes associades a aquest compte si n'hi ha alguna.
 
