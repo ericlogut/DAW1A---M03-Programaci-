@@ -19,7 +19,7 @@ L'aplicació s'ha implementat a Java i s'ha utilitzat JavaFX per a la interfíci
 ### AlmacenarUsuario:
 Durant l'elaboració del treball he tingut la necessitat de tenir una variable global que guardes la ID de l'usuari que havia iniciat sessió, per fer-ho, he hagut de crear aquesta classe que només em serveix per tenir aquesta ID guardada i poder utilitzar-la a qualsevol lloc de l'aplicació.
 
-### BizumController:
+### BizumController (Extra)
 Aquest és el codi del controlador de la vista "Bizum". Aquesta vista permet moure diners d'un compte a un altre. El codi fa servir JavaFX per crear elements gràfics com TextField i ChoiceBox.
 - El mètode 'initialize()' s'executa quan es carrega la vista i inicialitza els ComboBox amb les opcions de comptes i usuaris disponibles.
 - El mètode 'moureDiners()' és cridat quan es prem el botó per moure diners. El mètode obté el compte origen i la quantitat a moure a partir dels elements gràfics i actualitza les dades de la base de dades per transferir els diners del compte origen al compte destí. Finalment, registra el moviment al registre de moviments cridant el mètode 'registraMoviment()'.
@@ -47,7 +47,7 @@ Aquesta classe és útil perquè encapsula la lògica de connexió a la base de 
 
 **IMPORTANT:** S'ha d'importar la base de dades per tal de poder fer funcionar l'aplicació
 
-### ConsultarController
+### ConsultarController (Extra: pots consultar les teves targetes)
 La classe ConsultarController és el controlador per a la finestra de consulta del sistema de caixers automàtics. Aquesta finestra mostra el saldo total dels comptes de l'usuari, permet escollir un compte i mostra les targetes associades a aquest compte si n'hi ha alguna.
 
 La classe conté diversos mètodes que s'utilitzen per a mostrar la informació al usuari i gestionar les interaccions amb el sistema. A continuació es descriuen els mètodes de la classe:
@@ -62,7 +62,7 @@ La classe conté també diversos atributs:
 - connectionClass: La classe de connexió a la base de dades.
 - connection: La connexió a la base de dades.
 
-### FacturesController
+### FacturesController (Extra)
 La classe FacturesController conté diversos mètodes que es relacionen amb el pagament de factures i la gestió de moviments. Els mètodes són:
 - switchToMenu: aquest mètode és cridat quan es prem el botó "Menu" i fa que la finestra passi a mostrar la vista "menu".
 - initialize: aquest mètode s'executa quan la vista és carregada per primera vegada i inicialitza els valors de les caixes de selecció amb les opcions disponibles de comptes i factures.
